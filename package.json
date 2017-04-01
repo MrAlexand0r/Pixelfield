@@ -1,0 +1,23 @@
+{
+  "name": "pixelfield",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AUTplayed/Pixelfield.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AUTplayed/Pixelfield/issues"
+  },
+  "homepage": "https://github.com/AUTplayed/Pixelfield#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-ws": "^3.0.0"
+  }
+}
