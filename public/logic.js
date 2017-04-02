@@ -1,10 +1,10 @@
 
-var colors = [{name:"blue",value:"#1d5aff", code:"1"},
-            {name:"green",value:"#024913", code:"2"},
-            {name:"red",value:"#ff2c2c", code:"3"},
-            {name:"black",value:"#242424", code:"4"},
-            {name:"yellow",value:"#f2ff1d", code:"5"},
-            {name:"orange",value:"#ff6b1b", code:"6"}];
+var colors = [{name:"blue",value:"#1d5aff", code:1},
+            {name:"green",value:"#024913", code:2},
+            {name:"red",value:"#ff2c2c", code:3},
+            {name:"black",value:"#242424", code:4},
+            {name:"yellow",value:"#f2ff1d", code:5},
+            {name:"orange",value:"#ff6b1b", code:6}];
 
 var selectedColor;
 
