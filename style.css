@@ -9,7 +9,7 @@ html{
 
 footer{
     width:100%;
-    height: 10vh;
+    height: 7vh;
     border:1px solid black;
     display:flex;
     justify-content:center;
@@ -18,7 +18,7 @@ footer{
 
 #main{
     width:100%;
-    height:90vh;
+    height:93vh;
 }
 
 #pixelfield{
@@ -32,8 +32,15 @@ footer{
 
 .color{
     height:100%;
-    width:100px;
     float:left;
+    transition:all 0.3s;
+}
+.color:hover{
+    box-shadow: inset 3px 3px 2px black;
+}
+
+.active{
+    box-shadow: inset 3px 3px 2px black;
 }
 
 #position{

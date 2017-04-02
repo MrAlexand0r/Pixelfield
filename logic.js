@@ -19,7 +19,7 @@ $(document).ready(()=>{
     colors.forEach((color)=>{
         $("#colors").append($("<div></div>").
         attr("class","color").
-        attr("style","background-color:"+color.value+";border:1px solid black;"));
+        attr("style","background-color:"+color.value+";width:"+$("#colors").height()+"px"));
     });
 
     //little hack to make canvas not blurry
