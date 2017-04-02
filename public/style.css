@@ -14,6 +14,7 @@ footer{
     display:flex;
     justify-content:center;
     align-items:center;
+    background-color: #181818;
 }
 
 #main{
@@ -40,7 +41,7 @@ footer{
 }
 
 .active{
-    box-shadow: inset 3px 3px 2px black;
+    box-shadow: inset 4px 4px 2px black;
 }
 
 #position{

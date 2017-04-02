@@ -18,7 +18,7 @@ $(document).ready(()=>{
     //init colors
     colors.forEach((color)=>{
         $("#colors").append($("<div></div>").
-        attr("class","color").
+        attr("class","color").attr("name",color.name).
         attr("style","background-color:"+color.value+";width:"+$("#colors").height()+"px"));
     });
 
@@ -28,15 +28,29 @@ $(document).ready(()=>{
     canvas = document.getElementById("pixelfield");
     ctx = canvas.getContext("2d");
     canvas.addEventListener("mousedown", mouseDownListener, false);
-    
     ctx.fillStyle = "#ffffff";
     render(position.x,position.y,position.zoom);
-
     canvas.onmousewheel = function(event){
         if(position.zoom <= 0.11 && event.wheelDelta < 0)return;
         position.zoom+=event.wheelDelta/1200;
         render(position.x, position.y, position.zoom);
     }
+
+    $(".color").click((e)=>{
+        $(".color").attr("class","color");
+        var color = $(e.target);
+        selectedColor = colors.filter(function(obj){
+            return obj.name == color.attr("name");
+        })[0];
+        console.log(selectedColor);
+        color.attr("class",color.attr("class")+" active");
+        canvas.addEventListener("mousemove", mouseMoveListener, false);
+        function mouseMoveListener(event){
+            render(position.x,position.y,position.z);
+            ctx.fillStyle = selectedColor.value;
+            ctx.fillRect(event.clientX,event.clientY,10,10);
+        }
+    });
 });
 
 function mouseDownListener(event){
@@ -64,7 +78,6 @@ function mouseDownListener(event){
 }
 
 function render(x,y,depth){
-    
     $("#position").html("("+Math.round(x)+","+Math.round(y)+")");
     console.log(position);
     ctx.fillStyle = "#ffffff";
