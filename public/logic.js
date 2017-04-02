@@ -6,7 +6,7 @@ var colors = [{name:"blue",value:"#1d5aff", code:1},
             {name:"yellow",value:"#f2ff1d", code:5},
             {name:"orange",value:"#ff6b1b", code:6}];
 
-var selectedColor;
+var selectedColor; //TODO
 
 var ctx;
 var canvas;
@@ -31,6 +31,12 @@ $(document).ready(()=>{
     
     ctx.fillStyle = "#ffffff";
     render(position.x,position.y,position.zoom);
+
+    canvas.onmousewheel = function(event){
+        if(position.zoom <= 0.11 && event.wheelDelta < 0)return;
+        position.zoom+=event.wheelDelta/1200;
+        render(position.x, position.y, position.zoom);
+    }
 });
 
 function mouseDownListener(event){
@@ -54,13 +60,6 @@ function mouseDownListener(event){
         $("#main").removeAttr("style");
         canvas.removeEventListener("mousemove",mouseMoveListener);
         canvas.removeEventListener("mouseup",mouseUpListener);
-    }
-
-    canvas.onmousewheel = function(event){
-        if(position.zoom <= 0.11 && event.wheelDelta < 0)return;
-        position.zoom+=event.wheelDelta/1200;
-        render(position.x, position.y, position.zoom);
-        
     }
 }
 
