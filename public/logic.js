@@ -13,19 +13,24 @@ var selectedColor; //TODO
 var ctx;
 var canvas;
 var position = {x:0, y:0,zoom:1};
-var size = 5000;
+var size = 1000;
 
-var values = [];
+var values;
+
+var socket = new WebSocket("ws://"+window.location.href.split('//')[1]+"socket");
 
 init();
 function init(){
-    for(var i = 0; i < size/10;i++){
-        values.push(new Array(size/10));
-        for(var j = 0; j < size/10;j++){
-            values[i][j] = -1;
-        }
+    socket.onopen = function(){
+        /*Send a small message to the console once the connection is established */
+        console.log('Connection open!');
     }
-    console.log(values);
+    socket.onmessage = function(msg){
+        if(!values){
+            values = JSON.parse(msg.data);
+            render();
+        }
+    };
 }
 
 $(document).ready(()=>{
@@ -132,6 +137,7 @@ function render(x,y,depth){
     ctx.scale(position.zoom,position.zoom);
     ctx.fillRect(x,y,size,size);
     drawGrid(); 
+    if(!values)return;
     for(var i = 0; i < size/10;i++){
         for(var j = 0; j < size/10;j++){
             var currentPixel = values[i][j];
