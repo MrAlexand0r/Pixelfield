@@ -18,9 +18,23 @@ var size = 1000;
 var values;
 
 var socket = new WebSocket("ws://" + window.location.href.split('//')[1] + "socket");
-
+socket.onopen = function () {
+    console.log('Connection open!');
+};
+socket.onmessage = function (msg) {
+    if (!values) {
+        values = JSON.parse(msg.data);
+        render();
+    }
+    var newPoint = JSON.parse(msg.data);
+    if (!newPoint.color || !newPoint.x || !newPoint.y) return;
+    ctx.fillStyle = colors.find(function (e) {
+        return e.code == newPoint.color;
+    }).value;
+    values[newPoint.x][newPoint.y] = newPoint.color;
+    ctx.fillRect(position.x + newPoint.x * 10, position.y + newPoint.y * 10, 10, 10);
+};
 $(document).ready(() => {
-    render();
     //init colors
     colors.forEach((color) => {
         $("#colors").append($("<div></div>").
@@ -34,20 +48,6 @@ $(document).ready(() => {
     canvas = document.getElementById("pixelfield");
     ctx = canvas.getContext("2d");
     //socket stuff
-    socket.onopen = function () {
-        console.log('Connection open!');
-    };
-    socket.onmessage = function (msg) {
-        if (!values) {
-            values = JSON.parse(msg.data);
-        }
-        var newPoint = JSON.parse(msg.data);
-        if (!newPoint.color || !newPoint.x || !newPoint.y) return;
-        ctx.fillStyle = colors.find(function (e) {
-            return e.code == newPoint.color;
-        }).value;
-        ctx.fillRect(position.x + newPoint.x * 10, position.y + newPoint.y * 10, 10, 10);
-    };
 
     canvas.addEventListener("mousedown", mouseDownListener, false);
     ctx.fillStyle = "#ffffff";
@@ -99,6 +99,9 @@ $(document).ready(() => {
                 console.log(selectedColor);
                 values[pixelPos.x][pixelPos.y] = selectedColor.code;//.replaceAt(pixelPos.y,selectedColor.code);
                 //TODO send point over socket
+                var socketPixel = pixelPos;
+                socketPixel.color = selectedColor.code;
+                socket.send(JSON.stringify(socketPixel));
                 canvas.removeEventListener("mousemove", mouseMoveListener);
                 canvas.removeEventListener("mousedown", mouseDownListener);
                 selectedColor = null;
