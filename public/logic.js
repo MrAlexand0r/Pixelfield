@@ -13,16 +13,16 @@ var selectedColor; //TODO
 var ctx;
 var canvas;
 var position = {x:0, y:0,zoom:1};
-var size = 2000;
+var size = 5000;
 
 var values = [];
 
 init();
 function init(){
     for(var i = 0; i < size/10;i++){
-        values.push(new Array(size));
+        values.push(new Array(size/10));
         for(var j = 0; j < size/10;j++){
-            values[i][j] = " ";
+            values[i][j] = -1;
         }
     }
     console.log(values);
