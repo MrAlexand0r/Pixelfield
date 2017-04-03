@@ -48,7 +48,12 @@ $(document).ready(()=>{
         function mouseMoveListener(event){
             render(position.x,position.y,position.z);
             ctx.fillStyle = selectedColor.value;
-            ctx.fillRect(parseInt(event.clientX/position.zoom),parseInt(event.clientY/position.zoom),10,10);
+            var xpos = Math.round(parseInt(event.clientX/position.zoom)/10);
+            var ypos = Math.round(parseInt(event.clientY/position.zoom)/10);
+            xpos = xpos*10+position.x%10-10;
+            ypos = ypos*10+position.y%10-10;
+            if(xpos < position.x || ypos < position.y || xpos > position.x*size || ypos > position.y*size) return;
+            ctx.fillRect(xpos,ypos,10,10);
         }
     });
 });
