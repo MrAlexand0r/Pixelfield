@@ -52,7 +52,7 @@ $(document).ready(()=>{
             var ypos = Math.round(parseInt(event.clientY/position.zoom)/10);
             xpos = xpos*10+position.x%10-10;
             ypos = ypos*10+position.y%10-10;
-            if(xpos < position.x || ypos < position.y || xpos > position.x*size || ypos > position.y*size) return;
+            if(xpos < position.x || ypos < position.y || xpos > position.x+size-10 || ypos > position.y+size-10) return;
             ctx.fillRect(xpos,ypos,10,10);
         }
     });
